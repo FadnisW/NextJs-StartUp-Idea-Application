@@ -3,17 +3,10 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <h1>Startup Idea</h1>
-      <p>
-        Welcome to the Startup Idea app! Here you can find a list of startup
-        ideas that you can use to start your own business.
-      </p>
-      <Image
-        src="/placeholder.png"
-        alt="Startup Idea"
-        width={500}
-        height={300}
-      />
+    <section className="pink_container">
+          <h1 className="heading">Pitch, Vote, and launch your startup idea</h1>    
+          <p className="sub-heading !max-w-3xl"> Submit your Ideas, Vote on Pitches, Get Noticed by the Community</p>
+    </section>
     </>
   );
 }
