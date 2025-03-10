@@ -16,7 +16,7 @@ export default async function Home({
       author: {_id:1, name: "John Doe"},
       _id: "1",
       description: "This is a description",
-      image: "https://via.placeholder.com/150",
+      image: "/godzillaPlaceholder.jpeg",
       categroy: "Tech",
       title: "Startup Idea",
       votes: 100,
