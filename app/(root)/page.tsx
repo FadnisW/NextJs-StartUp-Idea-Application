@@ -2,6 +2,8 @@ import { auth } from "@/auth";
 import SearchForm from "@/components/SearchForm";
 import { title } from "process";
 import StartupCard from "@/components/StartupCard";
+import { client } from "@/sanity/lib/client";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
 export default async function Home({
   searchParams,
@@ -9,19 +11,21 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
-  const posts = [
-    {
-      _CreatedAt: new Date(),
-      Views: 100,
-      author: {_id:1, name: "John Doe"},
-      _id: "1",
-      description: "This is a description",
-      image: "/godzillaPlaceholder.jpeg",
-      categroy: "Tech",
-      title: "Startup Idea",
-      votes: 100,
-    },
-  ];
+   const posts = await client.fetch(STARTUPS_QUERY);
+   console.log(JSON.stringify(posts, null, 2));
+  // const posts = [
+  //   {
+  //     _CreatedAt: new Date(),
+  //     Views: 100,
+  //     author: {_id:1, name: "John Doe"},
+  //     _id: "1",
+  //     description: "This is a description",
+  //     image: "/godzillaPlaceholder.jpeg",
+  //     categroy: "Tech",
+  //     title: "Startup Idea",
+  //     votes: 100,
+  //   },
+  // ];
   return (
     <>
       <section className="pink_container">
@@ -39,7 +43,7 @@ export default async function Home({
         </p>
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post: StartupCardType, number) => <StartupCard key={post?._id} post={post} />)
+            posts.map((post: StartupTypeCard) => <StartupCard key={post?._id} post={post} />)
           ) : (
             <p className="no-results">No Startups Found</p>
           )}
@@ -48,25 +52,3 @@ export default async function Home({
     </>
   );
 }
-// <li key={post._id} className="card">
-//   <img
-//     src={post.image}
-//     alt={post.title}
-//     className="card_image"
-//   />
-//   <div className="card_content">
-//     <h2 className="card_title">{post.title}</h2>
-//     <p className="card_description">{post.description}</p>
-//     <div className="card_meta">
-//       <span>{post.author}</span>
-//       <span>{post.category}</span>
-//       <span>{post._CreatedAt}</span>
-//     </div>
-//     <div className="card_actions">
-//       <button className="card_btn">Vote</button>
-//       <span>{post.votes}</span>
-//       <button className="card_btn">View</button>
-//       <span>{post.Views}</span>
-//     </div>
-//   </div>
-// </li>
